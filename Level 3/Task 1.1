@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Gallery</title>
+  <style>
+    /* Styles for the gallery container */
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin: 20px auto;
+      width: 80%;
+    }
+
+    /* Styles for thumbnail images */
+    .gallery-thumb {
+      margin: 5px;
+      cursor: pointer;
+      position: relative; /* For overlay effect */
+    }
+
+    .gallery-thumb img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .gallery-thumb::after { /* Overlay effect on hover */
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .gallery-thumb:hover::after {
+      opacity: 1;
+    }
+
+    /* Styles for the enlarged image */
+    .gallery-image {
+      width: 100%;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="gallery">
+    <figure class="gallery-thumb">
+      <img src="image1.jpg" alt="Image 1 Thumbnail">
+    </figure>
+    <figure class="gallery-thumb">
+      <img src="image2.jpg" alt="Image 2 Thumbnail">
+    </figure>
+    <figure class="gallery-thumb">
+      <img src="images3.jpg" alt="Image 3 Thumbnail">
+    </figure>
+    <img src="" alt="Enlarged Image" class="gallery-image">
+  </div>
+
+  <script>
+    const thumbnails = document.querySelectorAll('.gallery-thumb img');
+    const enlargedImage = document.querySelector('.gallery-image');
+
+    thumbnails.forEach(thumbnail => {
+      thumbnail.addEventListener('click', () => {
+        const imagePath = thumbnail.src.replace(/thumb\//, ''); // Assuming consistent path format
+        enlargedImage.src = imagePath;
+        enlargedImage.style.display = 'block'; // Display enlarged image explicitly
+      });
+    });
+  </script>
+</body>
+</html>
